@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP Library</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <form id="request-form">
+        <select id="http-method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
+            <option value="PATCH">PATCH</option>
+        </select>
+        <input type="text" id="url-field" placeholder="Enter URL...">
+        <textarea id="body-field" placeholder="Enter request body..."></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <pre id="response"></pre>
+</body>
+</html>
