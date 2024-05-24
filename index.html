@@ -6,6 +6,7 @@
     <title>HTTP Library</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
+    <script src="httprequest.js"></script>
 </head>
 <body>
     <h2 id="page-title">HTTP Library</h2>
@@ -20,20 +21,21 @@
         </div>
         <div class="input-group">
             <label for="url-field">Route:</label>
-            <input type="text" id="url-field" placeholder="Enter URL" value="https://jsonplaceholder.typicode.com/users/">
+            <input type="text" id="url-field" placeholder="Enter URL" value="https://jsonplaceholder.typicode.com/posts">
         </div>
-        <div class="input-group" id="user-id-group" style="display: none;">
-            <label for="user-id">User ID:</label>
-            <input type="text" id="user-id" placeholder="Enter User ID">
+        <div class="flex-container">
+            <div class="input-group">
+                <label for="user-id">User ID:</label>
+                <input type="text" id="user-id" placeholder="Enter User ID">
+            </div>
+            <div class="input-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" placeholder="Enter Title">
+            </div>
         </div>
-        <div class="input-group" id="user-name-group" style="display: none;">
-            <label for="user-name">User Name:</label>
-            <input type="text" id="user-name" placeholder="Enter User Name">
-        </div>
-        <textarea id="body-field" placeholder="Enter request body..."></textarea>
         <button type="submit" id="send">Send</button>
     </form>
-    <label for="response">Response:</label>
-    <pre id="response"></pre>
+    <h4 id="page-response">Response:</h4>
+    <section id="response"></section>
 </body>
 </html>
