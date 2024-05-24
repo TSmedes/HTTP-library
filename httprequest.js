@@ -1,16 +1,7 @@
 class HTTPRequest {
-    constructor(URL) {
-        this.URL = URL;
-    }
-    async request(method, route, {params = {}, queries = {}, body = null} = {}) {
+    async request(method, route, param, title = null, body = null) {
         try{
-            resource = `${this.URL}${endpoint}`;
-            Object.keys(params).forEach((param) => {
-                resource.searchParams.append(param);
-            });
-            Object.keys(queries).forEach((query) => {
-                resource.searchParams.append(query, queries[query]);
-            });
+            route.concat(param);
             const options = {
                 method
             }
@@ -18,10 +9,16 @@ class HTTPRequest {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-            if(body) {
-                options.body = JSON.stringify(body);
+            if(body && title) {
+                options.body = JSON.stringify({title: `${title}`, body: `${body}`});
             }
-            const response = await fetch(resource, options);
+            else if(body) {
+                options.body = JSON.stringify({body: `${body}`});
+            }
+            else if(title) {
+                options.body = JSON.stringify({title: `${title}`});
+            }
+            const response = await fetch(route, options);
             if(!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`)
             }
@@ -33,16 +30,19 @@ class HTTPRequest {
             return {error: err};
         }
     }
-    get(route, options = {}) {
-        return this.request("GET", route, options);
+    get(route, param) {
+        return this.request("GET", route, param);
     }
-    post(route, options = {}) {
-        return this.request("POST", route, options);
+    post(route, title, body) {
+        return this.request("POST", route, "", title, body);
     }
-    put(route, options = {}) {
-        return this.request("PUT", route, options);
+    put(route, param, title, body) {
+        return this.request("PUT", route, param, title, body);
     }
-    delete(route, options = {}) {
-        return this.request("DELETE", route, options);
+    delete(route, param) {
+        return this.request("DELETE", route, param);
+    }
+    patch(route, param, title, body) {
+        return this.request("PATCH", route, param, title, body);
     }
 }
