@@ -8,7 +8,7 @@ function StartUp() {
     document.querySelector("#get").checked = true;
     SetupInput("get");
 
-    document.getElementById("submit").addEventListener("click", newRequest());
+    document.getElementById("send").addEventListener("click", newRequest());
     //Radio button listeners
     document.querySelector("#get").addEventListener("change", () => SetupInput("get"));
     document.querySelector("#put").addEventListener("change", () => SetupInput("post"));
@@ -22,7 +22,7 @@ function StartUp() {
       });
 }
 function SetupInput(method) {
-    switch (reqType) {
+    switch (method) {
         case "get":
           document.querySelector("#user-id").style.display = "flex";
           document.querySelector("#body-field").style.display = "none";
@@ -84,22 +84,21 @@ function newRequest() {
         break;
         }
     }
-
     let okToSend;
-    if (method === "get") {
+    if (method === "GET") {
         document.querySelector("#body-field").value = "";
-        document.querySelector("#title-field").value = "";
+        document.querySelector("#title").value = "";
         okToSend = (ValidId(document.querySelector("#user-id").value));
     }
 
-    if (method === "post") {
+    if (method === "POST") {
         document.querySelector("#user-id").value = "";
         title = document.querySelector("#title").value;
         body = document.querySelector("#body-field").value;
         okToSend = true;
     }
 
-    if (method === "put") {
+    if (method === "PUT") {
         okToSend = false;
         if (ValidId(document.querySelector("#user-id").value,true)) {
            title = document.querySelector("#title").value;
@@ -107,12 +106,12 @@ function newRequest() {
           okToSend = true;
         }
     }
-    if (method === "delete") {
+    if (method === "DELETE") {
         document.querySelector("#body-field").value = "";
-        document.querySelector("#title-field").value = "";
+        document.querySelector("#title").value = "";
         okToSend = (ValidId(document.querySelector("#user-id").value,true));
     };
-    if (method === "patch") {
+    if (method === "PATCH") {
         if (ValidId(document.querySelector("#user-id").value,true)) {
              title = document.querySelector("#title").value;
              body = document.querySelector("#body-field").value;
@@ -124,7 +123,7 @@ function newRequest() {
         document.querySelector("#user-id").style.border = "1px solid lightgrey";
         document.querySelector("#title").style.border = "1px solid lightgrey";
         document.querySelector("#body-field").style.border = "1px solid lightgrey";
-        sendRequest(method,route,document.querySelector("#body-field").value , title, body);
+        sendRequest(method,route,document.querySelector("#user-id").value , title, body);
         document.querySelector("#user-id").value = "";
         document.querySelector("#title").value = "";
         document.querySelector("#body-field").value = "";
@@ -133,24 +132,42 @@ function newRequest() {
     }
 }
 
-function sendRequest(reqType, targetURL, id, title, body) {
-    let resp = document.querySelector('#response').innerHTML;
-    switch (reqType) {
-      case "get": // Get users from the endpoint
-        resp = http.get(targetURL, id);
+async function sendRequest(method, targetURL, id, title, body) {
+
+    let resp;
+    switch (method) {
+      case "GET": // Get users from the endpoint
+        resp = await http.get(targetURL, id);
         break;
-      case "post": // Post (add) user to the endpoint
-        resp = http.post(targetURL, title, body);
+      case "POST": // Post (add) user to the endpoint
+        resp = await http.post(targetURL, title, body);
         break;
-      case "put": // Put (update) user in the endpoint
-        resp = http.put(targetURL, id, title, body);
+      case "PUT": // Put (update) user in the endpoint
+        resp = await http.put(targetURL, id, title, body);
         break;
-      case "delete": // Delete user in the placeholder website
-        resp = http.delete(targetURL, id);
+      case "DELETE": // Delete user in the placeholder website
+        resp = await http.delete(targetURL, id);
         break;
-      case "patch": // Delete user in the placeholder website
-        resp = http.delete(targetURL, id, title, body);
+      case "PATCH": // Delete user in the placeholder website
+        resp = await http.delete(targetURL, id, title, body);
         break;
     }
+    ShowResponse(resp);
     
+}
+
+function ShowResponse(responseData) {
+    let html = "<ul style='list-style:none'>";
+   
+  console.log(responseData);
+    if (typeof responseData === "string") {
+      html += `<li>${responseData}</li>`;
+    } else if (Array.isArray(responseData)) {
+      responseData.forEach(user => {
+        html += `<li>Title: ${user.title}</li> <li>Body: ${user.body}</li>`;
+      })
+    } else {
+      html += `<li>Title: ${responseData.title}</li> <li>Body: ${responseData.body}</li>`;
+    }
+    document.querySelector("#response").innerHTML = html;
 }
