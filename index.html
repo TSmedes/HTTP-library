@@ -11,8 +11,9 @@
 <body>
     <h2 id="page-title">HTTP Library</h2>
     <form id="request-form">
+        <h4 id="page-response">Request:</h4>
         <div id="http-method" class="input-group">
-            <label for="http-method">Method:</label>
+            <label for="http-method" style="font-weight: bold;">Method:</label>
             <label for="method-get"><input type="radio" name="method" id="get" value="GET"> GET</label>
             <label for="method-post"><input type="radio" name="method" id="post" value="POST"> POST</label>
             <label for="method-put"><input type="radio" name="method" id="put" value="PUT"> PUT</label>
@@ -20,7 +21,7 @@
             <label for="method-patch"><input type="radio" name="method" id="patch" value="PATCH"> PATCH</label>
         </div>
         <div class="input-group">
-            <label for="url-field">Route:</label>
+            <label for="url-field" style="font-weight: bold;">Route:</label>
             <input type="text" id="url-field" placeholder="Enter URL" value="https://jsonplaceholder.typicode.com/users">
         </div>
         <div class="flex-container">

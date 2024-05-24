@@ -13,7 +13,7 @@ h2#page-title {
 
 h4#page-response {
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 1.75rem;
     line-height: 1.25;
     letter-spacing: -.1rem;
@@ -65,11 +65,15 @@ h4#page-response {
 }
 
 #http-method label {
-    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 #url-field {
     width: 400px;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #response {
