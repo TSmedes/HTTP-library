@@ -1,0 +1,51 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    padding: 1em;
+}
+
+#request-form {
+    margin-bottom: 1em;
+}
+
+#request-form select,
+#request-form input,
+#request-form textarea {
+    display: block;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+#request-form button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    cursor: pointer;
+}
+
+#request-form button:hover {
+    background-color: #0056b3;
+}
+
+#response {
+    margin-top: 1em;
+    border: 1px solid #ccc;
+    padding: 1em;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+#http-method {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
