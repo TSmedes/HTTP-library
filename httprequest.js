@@ -1,7 +1,9 @@
 class HTTPRequest {
     async request(method, route, param, title = null, body = null) {
         try{
-            route.concat(param);
+            route = route.concat('/');
+            route = route.concat(param);
+        
             const options = {
                 method
             }
