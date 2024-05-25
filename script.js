@@ -8,11 +8,11 @@ function StartUp() {
     document.querySelector("#get").checked = true;
     SetupInput("get");
 
-    document.getElementById("send").addEventListener("click", newRequest());
+    
     //Radio button listeners
     document.querySelector("#get").addEventListener("change", () => SetupInput("get"));
-    document.querySelector("#put").addEventListener("change", () => SetupInput("post"));
-    document.querySelector("#post").addEventListener("change", () => SetupInput("put"));
+    document.querySelector("#put").addEventListener("change", () => SetupInput("put"));
+    document.querySelector("#post").addEventListener("change", () => SetupInput("post"));
     document.querySelector("#delete").addEventListener("change", () => SetupInput("delete"));
     document.querySelector("#patch").addEventListener("change", () => SetupInput("patch"));
 
@@ -24,29 +24,39 @@ function StartUp() {
 function SetupInput(method) {
     switch (method) {
         case "get":
-          document.querySelector("#user-id").style.display = "flex";
-          document.querySelector("#body-field").style.display = "none";
-          document.querySelector("#title").style.display = "none";
+          document.querySelector("#user-id").style.visibility = "visible";
+          document.querySelector("#user-label").style.visibility = "visible";
+          document.querySelector("#body-field").style.visibility = "hidden";
+          document.querySelector("#title-label").style.visibility = "hidden";
+          document.querySelector("#title").style.visibility = "hidden";
           break;
         case "post":
-          document.querySelector("#user-id").style.display = "none";
-          document.querySelector("#body-field").style.display = "flex";
-          document.querySelector("#title").style.display = "flex";
+          document.querySelector("#user-id").style.visibility = "hidden";
+          document.querySelector("#user-label").style.visibility = "hidden";
+          document.querySelector("#body-field").style.visibility = "visible";
+          document.querySelector("#title").style.visibility = "visible";
+          document.querySelector("#title-label").style.visibility = "visible";
           break;
         case "put":
-          document.querySelector("#user-id").style.display = "flex";
-          document.querySelector("#body-field").style.display = "flex";
-          document.querySelector("#title").style.display = "flex";
+          document.querySelector("#user-id").style.visibility = "visible";
+          document.querySelector("#user-label").style.visibility = "visible";
+          document.querySelector("#body-field").style.visibility = "visible";
+          document.querySelector("#title").style.visibility = "visible";
+          document.querySelector("#title-label").style.visibility = "visible";
           break;
         case "delete":
-          document.querySelector("#user-id").style.display = "flex";
-          document.querySelector("#body-field").style.display = "none";
-          document.querySelector("#title").style.display = "none";
+          document.querySelector("#user-id").style.visibility = "visible";
+          document.querySelector("#user-label").style.visibility = "visible";
+          document.querySelector("#body-field").style.visibility = "hidden";
+          document.querySelector("#title").style.visibility = "hidden";
+          document.querySelector("#title-label").style.visibility = "hidden";
           break;
         case "patch":
-          document.querySelector("#user-id").style.display = "flex";
-          document.querySelector("#body-field").style.display = "flex";
-          document.querySelector("#title").style.display = "flex";
+          document.querySelector("#user-id").style.visibility = "visible";
+          document.querySelector("#user-label").style.visibility = "visible";
+          document.querySelector("#body-field").style.visibility = "visible";
+          document.querySelector("#title").style.visibility = "visible";
+          document.querySelector("#title-label").style.visibility = "visible";
           break;
     }
 }
@@ -56,7 +66,7 @@ function ValidId(id, required = false) {
     if (id.length > 0) {
       isValid = (Number.isInteger(Number(id)))
       if (isValid) {
-        isValid = ((Number(id) > 1 && Number(id) < 11));
+        isValid = ((Number(id) > 1 && Number(id) < 101));
       }
     } else if (required) {
       isValid = false;
